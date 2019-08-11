@@ -14,15 +14,15 @@ public class FadScreen : MonoBehaviour
 		image = GetComponentInChildren<Image>();
 	}
 
-	public void FadOut(Color colorTarget)
+	public void FadOut(Color colorTarget, float fadDuration = 1f)
 	{
 		image.color = new Color(colorTarget.r, colorTarget.g, colorTarget.b, 0f);
-		image.DOFade(1f, 1f).Play();
+		image.DOFade(1f, fadDuration).Play();
 	}
 
-	public void FadIn(Color colorTarget)
+	public void FadIn(Color colorTarget, float fadDuration = 1f)
 	{
 		image.color = colorTarget;
-		image.DOFade(0f, 1f).Play();
+		image.DOFade(0f, fadDuration).Play();
 	}
 }
