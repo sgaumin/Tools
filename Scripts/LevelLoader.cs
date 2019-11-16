@@ -53,5 +53,5 @@ public static class LevelLoader
 #endif
 	}
 
-	private static void LevelClear() => DOTween.Clear(true);
+	private static void LevelClear() => DOTween.Clear(false);
 }
