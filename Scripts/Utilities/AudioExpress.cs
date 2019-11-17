@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -26,6 +27,8 @@ public class AudioExpress
 	[SerializeField] private AutoDestroyTypes autoDestroy = AutoDestroyTypes.No;
 	[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
 
+	[SerializeField] private AudioMixerGroup mixerGroup;
+
 	private AudioSource audioSource;
 
 	public void Play(GameObject gameObject)
@@ -46,6 +49,7 @@ public class AudioExpress
 			audioSource.clip = isUsingClips ? clips[Random.Range(0, clips.Length)] : clip;
 			audioSource.playOnAwake = false;
 			audioSource.loop = loop;
+			audioSource.outputAudioMixerGroup = mixerGroup;
 		}
 
 		if (isPitchModified)
