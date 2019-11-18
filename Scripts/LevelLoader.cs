@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public static class LevelLoader
 {

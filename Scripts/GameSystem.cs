@@ -18,14 +18,13 @@ public abstract class GameSystem : MonoBehaviour
 		DOTween.defaultAutoKill = false;
 	}
 
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX
 	protected virtual void Update()
 	{
-#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX
-
 		if (Input.GetButtonDown("Quit"))
 		{
 			LevelLoader.QuitGame();
 		}
-#endif
 	}
+#endif
 }
