@@ -11,4 +11,3 @@ $ git submodule add --name Tools http://github.com/sgaumin/Tools Assets/Modules/
 - Project Cleaner: https://github.com/unity-cn/Tool-UnityAssetCleaner
 - CharacterController2D : https://www.youtube.com/watch?v=dwcT-Dch0bA
 - RippleEffect : https://github.com/keijiro/RippleEffect
-- XInputDotNet : https://github.com/speps/XInputDotNet
