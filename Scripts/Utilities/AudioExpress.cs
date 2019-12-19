@@ -13,21 +13,22 @@ public class AudioExpress
 		AutoDestroyAfterPlays
 	}
 
-	[SerializeField] private bool isUsingClips;
+	[Header("References")]
+	[SerializeField] private bool isUsingClips; // TODO: Editor visual condition
 	[SerializeField] private AudioClip clip;
 	[SerializeField] private AudioClip[] clips;
+	[SerializeField] private AudioMixerGroup mixerGroup;
 
+	[Header("Audio Parameters")]
 	[SerializeField] private bool attached;
-
 	[SerializeField] private bool loop;
 	[SerializeField] private bool isPitchModified;
 	[SerializeField, Range(0f, 1f)] private float pitchMaxVariation = 0.3f;
-	[SerializeField] private bool isStayedWhenLoaddingScene;
 
+	[Header("Component Behavior")]
+	[SerializeField] private bool isDontDestroyOnLoad;
 	[SerializeField] private AutoDestroyTypes autoDestroy = AutoDestroyTypes.No;
 	[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
-
-	[SerializeField] private AudioMixerGroup mixerGroup;
 
 	private AudioSource audioSource;
 
@@ -40,7 +41,7 @@ public class AudioExpress
 				gameObject.AddComponent<AudioSource>() :
 				new GameObject("Audio", typeof(AudioSource)).GetComponent<AudioSource>();
 
-			if (isStayedWhenLoaddingScene)
+			if (isDontDestroyOnLoad)
 			{
 				audioSource.gameObject.AddComponent<DontDestroyOnLoad>();
 			}
