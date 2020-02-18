@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 namespace Tools
@@ -21,6 +21,17 @@ namespace Tools
 		{
 			LevelClear();
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+		/// <summary>
+		/// Load next level present in the build settings window.
+		/// </summary>
+		public static void LoadPreviousLevel()
+		{
+			LevelClear();
+			int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+
+			// We check if the current scene is not the first one.
+			SceneManager.LoadScene(currentBuildIndex + (currentBuildIndex != 0 ? -1 : 0));
 		}
 
 		/// <summary>
