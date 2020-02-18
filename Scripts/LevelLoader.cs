@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 namespace Tools
@@ -20,7 +20,12 @@ namespace Tools
 		public static void LoadNextLevel()
 		{
 			LevelClear();
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+			int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+			int maxBuildIndex = SceneManager.sceneCountInBuildSettings;
+
+			// We check if the current scene is not the last one.
+			SceneManager.LoadScene(currentBuildIndex + (currentBuildIndex == maxBuildIndex ? 0 : 1));
+		}
 
 		/// <summary>
 		/// Load next level present in the build settings window.
