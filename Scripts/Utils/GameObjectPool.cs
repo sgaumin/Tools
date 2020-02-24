@@ -26,11 +26,10 @@ namespace Tools.Utils
 			}
 		}
 
-		public GameObject GetObject<T>(T type) where T : struct, IConvertible => GetObjectInternal(type.ToString());
+		public GameObject GetObject(Enum type) => GetObjectInternal(type.ToString());
 
 		private GameObject GetObjectInternal(string typeName = "")
 		{
-			// If the pool is Empty, you have to instantiate from a prefab 
 			if (!objectLists.ContainsKey(typeName))
 			{
 				objectLists.Add(typeName, new List<GameObject>());
@@ -39,7 +38,6 @@ namespace Tools.Utils
 			List<GameObject> list = objectLists[typeName];
 			if (list.IsEmpty())
 			{
-				// Instantiating from a prefab
 				GameObject prefab = GetPrefab(typeName);
 				GameObject newObject = Instantiate(prefab);
 				newObject.transform.SetParent(objectHolders[typeName], false);
@@ -49,7 +47,6 @@ namespace Tools.Utils
 			}
 			else
 			{
-				// If the pool is not empty, extract one and return it back
 				int lastCellIndex = list.Count - 1;
 				GameObject obj = list[lastCellIndex];
 				list.RemoveAt(lastCellIndex);
@@ -79,19 +76,20 @@ namespace Tools.Utils
 			}
 		}
 
-		/// <summary>
-		/// This function returns the object back to the pool, so they can be used for further need 
-		/// </summary>
-		public void ReturnToRepository<T>(GameObject obj, T type) where T : struct, IConvertible
+		public void ReturnToRepository(GameObject obj, Enum type)
 		{
 			string groupName = type.ToString();
 
-			// Change objects parent and reset it
+			if (!objectHolders.ContainsKey(groupName))
+			{
+				GameObject o = new GameObject(groupName);
+				o.transform.SetParent(transform, false);
+				objectHolders.Add(groupName, o.transform);
+			}
 			obj.transform.SetParent(objectHolders[groupName]);
 			obj.transform.position = Vector3.zero;
 			obj.gameObject.SetActive(false);
 
-			// Add object to its related list
 			if (!objectLists.ContainsKey(groupName))
 			{
 				objectLists.Add(groupName, new List<GameObject>());
