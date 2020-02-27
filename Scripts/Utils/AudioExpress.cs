@@ -25,7 +25,7 @@ namespace Tools.Utils
 		[SerializeField] private bool attached;
 		[SerializeField] private bool loop;
 		[SerializeField] private bool isPitchModified;
-		[SerializeField, Range(0f, 1f)] private float pitchMaxVariation = 0.3f;
+		[SerializeField, MinMaxSlider(-1f, 1f)] private MinMax pitchMaxVariation = new MinMax(-0.2f, 0.2f);
 
 		[Header("Component Behavior")]
 		[SerializeField] private bool isDontDestroyOnLoad;
@@ -49,16 +49,13 @@ namespace Tools.Utils
 				}
 
 				// Setup Paramaters
-				audioSource.clip = isUsingClips ? clips[Random.Range(0, clips.Length)] : clip;
 				audioSource.playOnAwake = false;
 				audioSource.loop = loop;
 				audioSource.outputAudioMixerGroup = mixerGroup;
 			}
 
-			if (isPitchModified)
-			{
-				audioSource.pitch = 1f - Random.Range(0f, pitchMaxVariation);
-			}
+			audioSource.clip = isUsingClips ? clips[Random.Range(0, clips.Length)] : clip;
+			audioSource.pitch = isPitchModified ? 1f - pitchMaxVariation.RandomValue : audioSource.pitch;
 
 			// Auto Destroy
 			if (!attached)
