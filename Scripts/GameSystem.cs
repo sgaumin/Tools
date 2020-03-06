@@ -14,7 +14,7 @@ namespace Tools
 
 		protected virtual void Update()
 		{
-#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_EDITOR
 			if (Input.GetButtonDown("Quit"))
 			{
 				LevelLoader.QuitGame();
