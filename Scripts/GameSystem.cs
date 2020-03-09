@@ -9,7 +9,6 @@ namespace Tools
 		{
 			DOTween.Init();
 			DOTween.defaultAutoPlay = AutoPlay.None;
-			DOTween.defaultAutoKill = false;
 		}
 
 		protected virtual void Update()
