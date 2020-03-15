@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +6,29 @@ namespace Tools
 {
 	public static class LevelLoader
 	{
+		/// <summary>
+		/// Load the corresponding scene.
+		/// </summary>
+		/// <param name="levelLoading">Level to load.</param>
+		public static void OnLoadLevel(LevelLoading levelLoading)
+		{
+			switch (levelLoading)
+			{
+				case LevelLoading.PreviousLevel:
+					LevelLoader.LoadPreviousLevel();
+					break;
+				case LevelLoading.ReloadLevel:
+					LevelLoader.ReloadLevel();
+					break;
+				case LevelLoading.NextLevel:
+					LevelLoader.LoadNextLevel();
+					break;
+				case LevelLoading.FirstLevel:
+					LevelLoader.LoadLevelByIndex(0);
+					break;
+			}
+		}
+
 		/// <summary>
 		/// Reload the current level.
 		/// </summary>
