@@ -21,13 +21,13 @@ namespace Tools.Utils
 
         public void FadOut(Color? colorTarget = null, float fadDuration = 1f, Ease? ease = null)
         {
-            image.color = colorTarget != null ? new Color((float)colorTarget?.r, (float)colorTarget?.g, (float)colorTarget?.b, 0f) : (Color)colorTarget;
+            image.color = colorTarget != null ? new Color((float)colorTarget?.r, (float)colorTarget?.g, (float)colorTarget?.b, 0f) : defaultFadColorTarget;
             image.DOFade(1f, fadDuration).SetEase(ease ?? defaultEase).Play();
         }
 
         public IEnumerator FadOutCore(Color? colorTarget = null, float fadDuration = 1f, Ease? ease = null)
         {
-            image.color = colorTarget != null ? new Color((float)colorTarget?.r, (float)colorTarget?.g, (float)colorTarget?.b, 0f) : (Color)colorTarget;
+            image.color = colorTarget != null ? new Color((float)colorTarget?.r, (float)colorTarget?.g, (float)colorTarget?.b, 0f) : defaultFadColorTarget;
             Tweener fad = image.DOFade(1f, fadDuration).SetEase(ease ?? defaultEase).Play();
             yield return fad.WaitForCompletion();
         }
