@@ -8,7 +8,7 @@ namespace Tools.Utils
 	[Serializable]
 	public class AudioExpress
 	{
-		private enum AutoDestroyTypes
+		public enum AutoDestroyTypes
 		{
 			No,
 			AutoDestroyAfterDuration,
@@ -16,7 +16,7 @@ namespace Tools.Utils
 		}
 
 		[Header("References")]
-		[SerializeField] private bool isUsingClips; // TODO: Editor visual condition
+		[SerializeField] private bool isUsingClips;
 		[SerializeField] private AudioClip clip;
 		[SerializeField] private AudioClip[] clips;
 		[SerializeField] private AudioMixerGroup mixerGroup;
