@@ -16,15 +16,26 @@ public class Transformer : MonoBehaviour
 	private Vector3 startRotation;
 	private Vector3 startScale;
 	private int rotationAmplitudeFactor;
+	private bool isAlreadySetup;
 
 	protected void OnEnable()
 	{
-		startPosition = transform.localPosition;
-		startRotation = transform.localRotation.eulerAngles;
-		startScale = transform.localScale;
+		if (!isAlreadySetup)
+		{
+			isAlreadySetup = true;
 
-		rotationAmplitudeFactor = rotater.HasFullAmplitude ? 2 : 1;
+			startPosition = transform.localPosition;
+			startRotation = transform.localRotation.eulerAngles;
+			startScale = transform.localScale;
 
+			rotationAmplitudeFactor = rotater.HasFullAmplitude ? 2 : 1;
+		}
+
+		RestartAnimations();
+	}
+
+	public void Init()
+	{
 		if (positioner.PlayOnStart)
 		{
 			PlayLoop(TransformerType.Position, positioner.LoopCount);
@@ -39,6 +50,12 @@ public class Transformer : MonoBehaviour
 		{
 			PlayLoop(TransformerType.Scale, scaler.LoopCount);
 		}
+	}
+
+	public void RestartAnimations()
+	{
+		ResetState();
+		Init();
 	}
 
 	public void PlayOnce(TransformerType type)
@@ -56,12 +73,18 @@ public class Transformer : MonoBehaviour
 				break;
 
 			case TransformerType.Rotation:
+
 				currentRotater?.Kill();
-				Vector3 target = !rotater.IsReverting ? new Vector3(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + rotationAmplitudeFactor * rotater.AngleTarget) : startRotation;
+
+				Vector3 target = !rotater.IsReverting ?
+					new Vector3(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + rotationAmplitudeFactor * rotater.AngleTarget) :
+					startRotation;
 
 				if (rotater.HasFullAmplitude)
 				{
-					transform.localRotation = !rotater.IsReverting ? Quaternion.Euler(startRotation) : Quaternion.Euler(new Vector3(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z - rotater.AngleTarget));
+					transform.localRotation = !rotater.IsReverting ?
+						Quaternion.Euler(new Vector3(startRotation.x, startRotation.y, startRotation.z - rotater.AngleTarget)) :
+						Quaternion.Euler(target);
 
 					currentRotater = transform
 							.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
@@ -71,7 +94,9 @@ public class Transformer : MonoBehaviour
 				}
 				else
 				{
-					transform.localRotation = !rotater.IsReverting ? Quaternion.Euler(startRotation) : Quaternion.Euler(target);
+					transform.localRotation = !rotater.IsReverting ?
+						Quaternion.Euler(new Vector3(startRotation.x, startRotation.y, startRotation.z)) :
+						Quaternion.Euler(target);
 
 					currentRotater = transform
 						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
@@ -101,8 +126,13 @@ public class Transformer : MonoBehaviour
 		switch (type)
 		{
 			case TransformerType.Position:
+
 				currentPositioner?.Kill();
-				transform.localPosition = !positioner.IsReverting ? startPosition : transform.localPosition + positioner.Target;
+
+				transform.localPosition = !positioner.IsReverting ?
+					startPosition :
+					transform.localPosition + positioner.Target;
+
 				currentPositioner = transform
 					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration)
 					.SetEase(positioner.Ease)
@@ -111,12 +141,18 @@ public class Transformer : MonoBehaviour
 				break;
 
 			case TransformerType.Rotation:
+
 				currentRotater?.Kill();
-				Vector3 target = !rotater.IsReverting ? new Vector3(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + rotationAmplitudeFactor * rotater.AngleTarget) : startRotation;
+
+				Vector3 target = !rotater.IsReverting ?
+					new Vector3(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + rotationAmplitudeFactor * rotater.AngleTarget) :
+					startRotation;
 
 				if (rotater.HasFullAmplitude)
 				{
-					transform.localRotation = !rotater.IsReverting ? Quaternion.Euler(startRotation) : Quaternion.Euler(new Vector3(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z - rotater.AngleTarget));
+					transform.localRotation = !rotater.IsReverting ?
+						Quaternion.Euler(new Vector3(startRotation.x, startRotation.y, startRotation.z - rotater.AngleTarget)) :
+						Quaternion.Euler(target);
 
 					currentRotater = transform
 						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
@@ -127,7 +163,9 @@ public class Transformer : MonoBehaviour
 				}
 				else
 				{
-					transform.localRotation = !rotater.IsReverting ? Quaternion.Euler(startRotation) : Quaternion.Euler(startRotation);
+					transform.localRotation = !rotater.IsReverting ?
+						Quaternion.Euler(new Vector3(startRotation.x, startRotation.y, startRotation.z)) :
+						Quaternion.Euler(target);
 
 					currentRotater = transform
 						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
@@ -160,8 +198,8 @@ public class Transformer : MonoBehaviour
 		currentPositioner?.Kill();
 		transform.localPosition = startPosition;
 
-		transform.localRotation = Quaternion.Euler(startRotation);
 		currentRotater?.Kill();
+		transform.localRotation = Quaternion.Euler(startRotation);
 
 		currentScaler?.Kill();
 		transform.localScale = startScale;
