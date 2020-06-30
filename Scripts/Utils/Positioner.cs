@@ -12,6 +12,7 @@ namespace Tools.Utils
 		[SerializeField] private LoopType loopType = LoopType.Yoyo;
 		[SerializeField] private int loopCount = -1;
 		[SerializeField] private bool playOnStart = false;
+		[SerializeField] private bool isReverting = false;
 
 		public Vector3 Target => positiontarget;
 		public float Duration => duration;
@@ -19,5 +20,6 @@ namespace Tools.Utils
 		public LoopType LoopType => loopType;
 		public int LoopCount => loopCount;
 		public bool PlayOnStart => playOnStart;
+		public bool IsReverting => isReverting;
 	}
 }
