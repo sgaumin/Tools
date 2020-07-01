@@ -69,6 +69,7 @@ public class Transformer : MonoBehaviour
 				currentPositioner = transform
 					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration)
 					.SetEase(positioner.Ease)
+					.SetUpdate(UpdateType.Normal, positioner.IsIgnoringTime)
 					.Play();
 				break;
 
@@ -90,6 +91,7 @@ public class Transformer : MonoBehaviour
 							.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
 							.SetEase(rotater.Ease)
 							.SetRelative()
+							.SetUpdate(UpdateType.Normal, rotater.IsIgnoringTime)
 							.Play();
 				}
 				else
@@ -102,6 +104,7 @@ public class Transformer : MonoBehaviour
 						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
 						.SetEase(rotater.Ease)
 						.SetRelative()
+						.SetUpdate(UpdateType.Normal, rotater.IsIgnoringTime)
 						.Play();
 				}
 
@@ -116,6 +119,7 @@ public class Transformer : MonoBehaviour
 				currentScaler = transform
 					.DOScale(!scaler.IsReverting ? startScale * currentFactor : startScale, scaler.Duration)
 					.SetEase(scaler.Ease)
+					.SetUpdate(UpdateType.Normal, scaler.IsIgnoringTime)
 					.Play();
 				break;
 		}
@@ -137,6 +141,7 @@ public class Transformer : MonoBehaviour
 					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration)
 					.SetEase(positioner.Ease)
 					.SetLoops(loop, positioner.LoopType)
+					.SetUpdate(UpdateType.Normal, positioner.IsIgnoringTime)
 					.Play();
 				break;
 
@@ -157,8 +162,9 @@ public class Transformer : MonoBehaviour
 					currentRotater = transform
 						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
 						.SetEase(rotater.Ease)
-						.SetLoops(loop, positioner.LoopType)
+						.SetLoops(loop, rotater.LoopType)
 						.SetRelative()
+						.SetUpdate(UpdateType.Normal, rotater.IsIgnoringTime)
 						.Play();
 				}
 				else
@@ -170,8 +176,9 @@ public class Transformer : MonoBehaviour
 					currentRotater = transform
 						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
 						.SetEase(rotater.Ease)
-						.SetLoops(loop, positioner.LoopType)
+						.SetLoops(loop, rotater.LoopType)
 						.SetRelative()
+						.SetUpdate(UpdateType.Normal, rotater.IsIgnoringTime)
 						.Play();
 				}
 
@@ -186,8 +193,8 @@ public class Transformer : MonoBehaviour
 				currentScaler = transform
 					.DOScale(!scaler.IsReverting ? startScale * currentFactor : startScale, scaler.Duration)
 					.SetEase(scaler.Ease)
-					.SetLoops(loop, positioner
-					.LoopType)
+					.SetLoops(loop, scaler.LoopType)
+					.SetUpdate(UpdateType.Normal, scaler.IsIgnoringTime)
 					.Play();
 				break;
 		}

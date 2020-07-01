@@ -14,6 +14,7 @@ namespace Tools.Utils
 		[SerializeField] private int loopCount = -1;
 		[SerializeField] private bool playOnStart = false;
 		[SerializeField] private bool isReverting = false;
+		[SerializeField] private bool isIgnoringTime = false;
 
 		public float AngleTarget => angleTarget;
 		public bool HasFullAmplitude => hasFullAmplitude;
@@ -23,5 +24,6 @@ namespace Tools.Utils
 		public int LoopCount => loopCount;
 		public bool PlayOnStart => playOnStart;
 		public bool IsReverting => isReverting;
+		public bool IsIgnoringTime => isIgnoringTime;
 	}
 }
