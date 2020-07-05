@@ -22,13 +22,11 @@ namespace Tools.Utils
 			SerializedProperty mixerGroup = property.FindPropertyRelative("mixerGroup");
 
 			// Audio Parameters
-			SerializedProperty attached = property.FindPropertyRelative("attached");
 			SerializedProperty loop = property.FindPropertyRelative("loop");
 			SerializedProperty isPitchModified = property.FindPropertyRelative("isPitchModified");
 			SerializedProperty pitchMaxVariation = property.FindPropertyRelative("pitchMaxVariation");
 
 			// Component Behavior
-			SerializedProperty isDontDestroyOnLoad = property.FindPropertyRelative("isDontDestroyOnLoad");
 			SerializedProperty autoDestroy = property.FindPropertyRelative("autoDestroy");
 			SerializedProperty multiplier = property.FindPropertyRelative("multiplier");
 
@@ -52,7 +50,6 @@ namespace Tools.Utils
 				}
 				EditorGUILayout.PropertyField(mixerGroup);
 
-				EditorGUILayout.PropertyField(attached);
 				EditorGUILayout.PropertyField(loop);
 				EditorGUILayout.PropertyField(isPitchModified, new GUIContent("Modify Pitch"));
 				if (isPitchModified.boolValue)
@@ -60,7 +57,6 @@ namespace Tools.Utils
 					EditorGUILayout.PropertyField(pitchMaxVariation);
 				}
 
-				EditorGUILayout.PropertyField(isDontDestroyOnLoad);
 				EditorGUILayout.PropertyField(autoDestroy);
 				if (autoDestroy.enumValueIndex != (int)AudioExpress.AutoDestroyTypes.No)
 				{

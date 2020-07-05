@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using Random = UnityEngine.Random;
 
 namespace Tools.Utils
 {
@@ -22,53 +21,46 @@ namespace Tools.Utils
 		[SerializeField] private AudioMixerGroup mixerGroup;
 
 		[Header("Audio Parameters")]
-		[SerializeField] private bool attached;
 		[SerializeField] private bool loop;
 		[SerializeField] private bool isPitchModified;
 		[SerializeField, MinMaxSlider(-1f, 1f)] private MinMax pitchMaxVariation = new MinMax(-0.2f, 0.2f);
 
 		[Header("Component Behavior")]
-		[SerializeField] private bool isDontDestroyOnLoad;
 		[SerializeField] private AutoDestroyTypes autoDestroy = AutoDestroyTypes.No;
 		[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
 
-		private AudioSource audioSource;
-
-		public void Play(GameObject gameObject)
+		public void Play()
 		{
 			// Initialization
-			if (audioSource is null)
-			{
-				audioSource = attached ?
-					gameObject.AddComponent<AudioSource>() :
-					new GameObject("Audio", typeof(AudioSource)).GetComponent<AudioSource>();
+			AudioUnit audioSource = AudioPool.GetFromPool();
 
-				if (isDontDestroyOnLoad)
-				{
-					audioSource.gameObject.AddComponent<DontDestroyOnLoad>();
-				}
+			// Setup Paramaters
+			audioSource.playOnAwake = false;
+			audioSource.loop = loop;
+			audioSource.outputAudioMixerGroup = mixerGroup;
 
-				// Setup Paramaters
-				audioSource.playOnAwake = false;
-				audioSource.loop = loop;
-				audioSource.outputAudioMixerGroup = mixerGroup;
-			}
-
-			audioSource.clip = isUsingClips ? clips[Random.Range(0, clips.Length)] : clip;
+			audioSource.clip = isUsingClips ? clips.Random() : clip;
 			audioSource.pitch = isPitchModified ? 1f - pitchMaxVariation.RandomValue : audioSource.pitch;
 
-			// Auto Destroy
-			if (!attached)
+			if (audioSource.clip == null)
 			{
-				switch (autoDestroy)
-				{
-					case AutoDestroyTypes.AutoDestroyAfterDuration:
-						audioSource.gameObject.AddComponent<DestroyAfterLoad>().Initialize(multiplier);
-						break;
-					case AutoDestroyTypes.AutoDestroyAfterPlays:
-						audioSource.gameObject.AddComponent<DestroyAfterLoad>().Initialize(audioSource.clip.length * (multiplier - 1));
-						break;
-				}
+				Debug.LogWarning($"An audio unit is created without a clip.");
+
+				AudioPool.ReturnToPool(audioSource);
+				return;
+			}
+
+			audioSource.gameObject.name += audioSource.clip.name;
+
+			// Auto Destroy
+			switch (autoDestroy)
+			{
+				case AutoDestroyTypes.AutoDestroyAfterDuration:
+					audioSource.duration = multiplier;
+					break;
+				case AutoDestroyTypes.AutoDestroyAfterPlays:
+					audioSource.duration = audioSource.clip.length * (multiplier - 1);
+					break;
 			}
 
 			// Play Sound
