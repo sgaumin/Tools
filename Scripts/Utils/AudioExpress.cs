@@ -7,13 +7,6 @@ namespace Tools.Utils
 	[Serializable]
 	public class AudioExpress
 	{
-		public enum AutoDestroyTypes
-		{
-			No,
-			AutoDestroyAfterDuration,
-			AutoDestroyAfterPlays
-		}
-
 		[Header("References")]
 		[SerializeField] private bool isUsingClips;
 		[SerializeField] private AudioClip clip;
@@ -21,12 +14,13 @@ namespace Tools.Utils
 		[SerializeField] private AudioMixerGroup mixerGroup;
 
 		[Header("Audio Parameters")]
-		[SerializeField] private bool loop;
+		[SerializeField] private AudioLoopType loopType = AudioLoopType.No;
+		[SerializeField, MinMaxSlider(0f, 10f)] private MinMax timeBetweenLoop = new MinMax(1f, 3f);
 		[SerializeField] private bool isPitchModified;
 		[SerializeField, MinMaxSlider(-1f, 1f)] private MinMax pitchMaxVariation = new MinMax(-0.2f, 0.2f);
 
 		[Header("Component Behavior")]
-		[SerializeField] private AutoDestroyTypes autoDestroy = AutoDestroyTypes.No;
+		[SerializeField] private AudioStopType autoDestroy = AudioStopType.No;
 		[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
 
 		public void Play()
@@ -36,11 +30,15 @@ namespace Tools.Utils
 
 			// Setup Paramaters
 			audioSource.playOnAwake = false;
-			audioSource.loop = loop;
+			audioSource.loop = loopType == AudioLoopType.Normal;
+			audioSource.loopType = loopType;
+			audioSource.timeBetweenLoop = timeBetweenLoop;
 			audioSource.outputAudioMixerGroup = mixerGroup;
 
 			audioSource.clip = isUsingClips ? clips.Random() : clip;
-			audioSource.pitch = isPitchModified ? 1f - pitchMaxVariation.RandomValue : audioSource.pitch;
+			audioSource.clips = isUsingClips ? clips : null;
+			audioSource.pitch = isPitchModified ? 1f - pitchMaxVariation.RandomValue : 1f;
+			audioSource.isGoingToStop = autoDestroy != AudioStopType.No;
 
 			if (audioSource.clip == null)
 			{
@@ -55,16 +53,16 @@ namespace Tools.Utils
 			// Auto Destroy
 			switch (autoDestroy)
 			{
-				case AutoDestroyTypes.AutoDestroyAfterDuration:
+				case AudioStopType.StopAfterDuration:
 					audioSource.duration = multiplier;
 					break;
-				case AutoDestroyTypes.AutoDestroyAfterPlays:
+				case AudioStopType.StopAfterPlays:
 					audioSource.duration = audioSource.clip.length * (multiplier - 1);
 					break;
 			}
 
 			// Play Sound
-			audioSource?.Play();
+			audioSource.Play();
 		}
 	}
 }

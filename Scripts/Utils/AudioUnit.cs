@@ -8,21 +8,23 @@ namespace Tools.Utils
 	public class AudioUnit : MonoBehaviour
 	{
 		private AudioSource audioSource;
-		private Coroutine returnToPool;
 
 		public event Action OnPlay;
 
 		public bool playOnAwake { get; set; }
 		public bool loop { get; set; }
+		public AudioLoopType loopType { get; set; }
+		public MinMax timeBetweenLoop { get; set; }
 		public AudioMixerGroup outputAudioMixerGroup { get; set; }
 		public AudioClip clip { get; set; }
+		public AudioClip[] clips { get; set; }
 		public float pitch { get; set; }
+		public bool isGoingToStop { get; set; }
 		public float duration { get; set; }
 
 		public void Play()
 		{
 			audioSource = GetComponent<AudioSource>();
-			returnToPool = null;
 
 			audioSource.playOnAwake = playOnAwake;
 			audioSource.loop = loop;
@@ -31,11 +33,32 @@ namespace Tools.Utils
 			audioSource.pitch = pitch;
 
 			OnPlay?.Invoke();
-			audioSource.Play();
 
-			if (!audioSource.loop)
+			if (loopType == AudioLoopType.Manuel)
 			{
-				returnToPool = StartCoroutine(WaitBeforeReturningToPool());
+				StartCoroutine(PlayLoop());
+			}
+			else
+			{
+				audioSource.Play();
+				if (!loop)
+				{
+					StartCoroutine(WaitBeforeReturningToPool());
+				}
+			}
+		}
+
+		private IEnumerator PlayLoop()
+		{
+			while (true)
+			{
+				yield return new WaitForSeconds(timeBetweenLoop.RandomValue);
+				audioSource.Play();
+
+				if (clips != null)
+				{
+					audioSource.clip = clips.Random();
+				}
 			}
 		}
 
@@ -43,11 +66,11 @@ namespace Tools.Utils
 		{
 			yield return new WaitForSeconds(audioSource.clip.length);
 			AudioPool.ReturnToPool(this);
+		}
 
-			if (returnToPool != null)
-			{
-				StopCoroutine(returnToPool);
-			}
+		private void OnDisable()
+		{
+			StopAllCoroutines();
 		}
 	}
 }

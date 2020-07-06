@@ -10,7 +10,10 @@ namespace Tools.Utils
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
-			return 8;
+			return base.GetPropertyHeight(property, label) +
+				(unfold
+					? EditorGUIUtility.singleLineHeight * property.enumNames.Length
+					: 0f);
 		}
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -22,7 +25,8 @@ namespace Tools.Utils
 			SerializedProperty mixerGroup = property.FindPropertyRelative("mixerGroup");
 
 			// Audio Parameters
-			SerializedProperty loop = property.FindPropertyRelative("loop");
+			SerializedProperty loopType = property.FindPropertyRelative("loopType");
+			SerializedProperty timeBetweenLoop = property.FindPropertyRelative("timeBetweenLoop");
 			SerializedProperty isPitchModified = property.FindPropertyRelative("isPitchModified");
 			SerializedProperty pitchMaxVariation = property.FindPropertyRelative("pitchMaxVariation");
 
@@ -30,9 +34,10 @@ namespace Tools.Utils
 			SerializedProperty autoDestroy = property.FindPropertyRelative("autoDestroy");
 			SerializedProperty multiplier = property.FindPropertyRelative("multiplier");
 
-			unfold = EditorGUI.Foldout(position, unfold, label);
+			EditorGUI.BeginProperty(position, label, property);
+			property.isExpanded = EditorGUI.Foldout(position, property.isExpanded, label);
 
-			if (unfold)
+			if (property.isExpanded)
 			{
 				// Display
 				property.serializedObject.Update();
@@ -50,7 +55,11 @@ namespace Tools.Utils
 				}
 				EditorGUILayout.PropertyField(mixerGroup);
 
-				EditorGUILayout.PropertyField(loop);
+				EditorGUILayout.PropertyField(loopType);
+				if (loopType.enumValueIndex == (int)AudioLoopType.Manuel)
+				{
+					EditorGUILayout.PropertyField(timeBetweenLoop);
+				}
 				EditorGUILayout.PropertyField(isPitchModified, new GUIContent("Modify Pitch"));
 				if (isPitchModified.boolValue)
 				{
@@ -58,17 +67,18 @@ namespace Tools.Utils
 				}
 
 				EditorGUILayout.PropertyField(autoDestroy);
-				if (autoDestroy.enumValueIndex != (int)AudioExpress.AutoDestroyTypes.No)
+				if (autoDestroy.enumValueIndex != (int)AudioStopType.No)
 				{
 					EditorGUILayout.PropertyField(
-					  multiplier, new GUIContent(autoDestroy.enumValueIndex == (int)AudioExpress.AutoDestroyTypes.AutoDestroyAfterDuration ?
+					  multiplier, new GUIContent(autoDestroy.enumValueIndex == (int)AudioStopType.StopAfterDuration ?
 					  "Seconds" : "Play Count"));
 				}
 
 				EditorGUI.indentLevel -= 1;
 
-				property.serializedObject.ApplyModifiedProperties();
 			}
+
+			EditorGUI.EndProperty();
 		}
 	}
 }
