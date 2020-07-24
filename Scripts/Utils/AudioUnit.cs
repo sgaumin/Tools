@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -46,6 +47,23 @@ namespace Tools.Utils
 					StartCoroutine(WaitBeforeReturningToPool());
 				}
 			}
+		}
+
+		public void StopAndReturnToPool()
+		{
+			audioSource.Stop();
+			AudioPool.ReturnToPool(this);
+		}
+
+		public void FadIn(float duration = 1f)
+		{
+			audioSource.volume = 0f;
+			audioSource.DOFade(1f, duration).Play();
+		}
+
+		public void FadOut(float duration = 1f)
+		{
+			audioSource.DOFade(0f, duration).Play();
 		}
 
 		private IEnumerator PlayLoop()

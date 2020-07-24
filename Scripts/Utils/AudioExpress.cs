@@ -23,7 +23,7 @@ namespace Tools.Utils
 		[SerializeField] private AudioStopType autoDestroy = AudioStopType.No;
 		[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
 
-		public void Play()
+		public AudioUnit Play(string audioUnitPrefixName = null)
 		{
 			// Initialization
 			AudioUnit audioSource = AudioPool.GetFromPool();
@@ -45,24 +45,32 @@ namespace Tools.Utils
 				Debug.LogWarning($"An audio unit is created without a clip.");
 
 				AudioPool.ReturnToPool(audioSource);
-				return;
 			}
-
-			audioSource.gameObject.name += audioSource.clip.name;
-
-			// Auto Destroy
-			switch (autoDestroy)
+			else
 			{
-				case AudioStopType.StopAfterDuration:
-					audioSource.duration = multiplier;
-					break;
-				case AudioStopType.StopAfterPlays:
-					audioSource.duration = audioSource.clip.length * (multiplier - 1);
-					break;
+				if (audioUnitPrefixName != null)
+				{
+					audioSource.gameObject.name = audioUnitPrefixName;
+				}
+
+				audioSource.gameObject.name += audioSource.clip.name;
+
+				// Auto Destroy
+				switch (autoDestroy)
+				{
+					case AudioStopType.StopAfterDuration:
+						audioSource.duration = multiplier;
+						break;
+					case AudioStopType.StopAfterPlays:
+						audioSource.duration = audioSource.clip.length * (multiplier - 1);
+						break;
+				}
+
+				// Play Sound
+				audioSource.Play();
 			}
 
-			// Play Sound
-			audioSource.Play();
+			return audioSource;
 		}
 	}
 }
