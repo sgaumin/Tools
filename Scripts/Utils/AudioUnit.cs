@@ -66,6 +66,16 @@ namespace Tools.Utils
 			audioSource.DOFade(0f, duration).Play();
 		}
 
+		public void SetPitch(float value, float duration = 1f, bool isIgnoringTime = false)
+		{
+			audioSource.DOPitch(0.5f, duration).SetUpdate(UpdateType.Normal, isIgnoringTime).Play();
+		}
+
+		public void ResetPitch(float duration = 1f, bool isIgnoringTime = false)
+		{
+			audioSource.DOPitch(pitch, duration).SetUpdate(UpdateType.Normal, isIgnoringTime).Play();
+		}
+
 		private IEnumerator PlayLoop()
 		{
 			while (true)
