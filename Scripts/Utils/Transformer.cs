@@ -34,6 +34,12 @@ public class Transformer : MonoBehaviour
 		RestartAnimations();
 	}
 
+	public void RestartAnimations()
+	{
+		ResetState();
+		Init();
+	}
+
 	public void Init()
 	{
 		if (positioner.PlayOnStart)
@@ -50,12 +56,6 @@ public class Transformer : MonoBehaviour
 		{
 			PlayLoop(TransformerType.Scale, scaler.LoopCount);
 		}
-	}
-
-	public void RestartAnimations()
-	{
-		ResetState();
-		Init();
 	}
 
 	public void PlayOnce(TransformerType type)
@@ -182,6 +182,11 @@ public class Transformer : MonoBehaviour
 						.Play();
 				}
 
+        if (rotater.CanStartAtEndPosition)
+        {
+					currentRotater.Goto(Random.value > 0.5f ? (float)rotater.Duration: 0f, true);
+				}
+
 				break;
 
 			case TransformerType.Scale:
@@ -196,6 +201,7 @@ public class Transformer : MonoBehaviour
 					.SetLoops(loop, scaler.LoopType)
 					.SetUpdate(UpdateType.Normal, scaler.IsIgnoringTime)
 					.Play();
+
 				break;
 		}
 	}

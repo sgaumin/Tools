@@ -15,8 +15,9 @@ namespace Tools.Utils
 		[SerializeField] private bool playOnStart = false;
 		[SerializeField] private bool isReverting = false;
 		[SerializeField] private bool isIgnoringTime = false;
+    [SerializeField] private bool canStartAtEndPosition = false;
 
-		public float AngleTarget => angleTarget;
+    public float AngleTarget => angleTarget;
 		public bool HasFullAmplitude => hasFullAmplitude;
 		public float Duration => duration;
 		public Ease Ease => ease;
@@ -25,5 +26,6 @@ namespace Tools.Utils
 		public bool PlayOnStart => playOnStart;
 		public bool IsReverting => isReverting;
 		public bool IsIgnoringTime => isIgnoringTime;
+		public bool CanStartAtEndPosition => canStartAtEndPosition;
 	}
 }
