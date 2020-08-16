@@ -1,5 +1,5 @@
 using DG.Tweening;
-using UnityEngine;
+using Tools.Utils;
 using UnityEngine.SceneManagement;
 
 namespace Tools
@@ -95,6 +95,10 @@ namespace Tools
 #endif
 		}
 
-		private static void LevelClear() => DOTween.Clear(false);
+		private static void LevelClear()
+		{
+			AudioPool.ResetAudioPool();
+			DOTween.Clear(false);
+		}
 	}
 }

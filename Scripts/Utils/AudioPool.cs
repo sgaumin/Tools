@@ -14,6 +14,12 @@ namespace Tools.Utils
 
 		private static GameObject audioParent;
 
+		public static void ResetAudioPool()
+		{
+			audioPool = new List<AudioUnit>();
+			audioParent = null;
+		}
+
 		public static AudioUnit GetFromPool()
 		{
 			if (audioParent == null)
