@@ -8,7 +8,7 @@ namespace Tools
 		protected virtual void Awake()
 		{
 			DOTween.Init();
-			DOTween.defaultAutoPlay = AutoPlay.None;
+			DOTween.defaultAutoPlay = AutoPlay.All;
 		}
 
 		protected virtual void Update()
