@@ -10,7 +10,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithX(this Transform t, float x)
 	{
-		t.position = new Vector3(x, t.position.y, t.position.z); ;
+		t.position = new Vector3(x, t.position.y, t.position.z);
 		return t;
 	}
 
@@ -22,7 +22,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithXAdded(this Transform t, float x)
 	{
-		t.position = new Vector3(t.position.x + x, t.position.y, t.position.z); ;
+		t.position = new Vector3(t.position.x + x, t.position.y, t.position.z);
 		return t;
 	}
 
@@ -34,7 +34,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithXMultiplied(this Transform t, float x)
 	{
-		t.position = new Vector3(t.position.x * x, t.position.y, t.position.z); ;
+		t.position = new Vector3(t.position.x * x, t.position.y, t.position.z);
 		return t;
 	}
 
@@ -46,7 +46,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithY(this Transform t, float y)
 	{
-		t.position = new Vector3(t.position.x, y, t.position.z); ;
+		t.position = new Vector3(t.position.x, y, t.position.z);
 		return t;
 	}
 
@@ -58,7 +58,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithYAdded(this Transform t, float y)
 	{
-		t.position = new Vector3(t.position.x, t.position.y + y, t.position.z); ;
+		t.position = new Vector3(t.position.x, t.position.y + y, t.position.z);
 		return t;
 	}
 
@@ -70,7 +70,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithYMultiplied(this Transform t, float y)
 	{
-		t.position = new Vector3(t.position.x, t.position.y * y, t.position.z); ;
+		t.position = new Vector3(t.position.x, t.position.y * y, t.position.z);
 		return t;
 	}
 
@@ -82,7 +82,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithZ(this Transform t, float z)
 	{
-		t.position = new Vector3(t.position.x, t.position.y, z); ;
+		t.position = new Vector3(t.position.x, t.position.y, z);
 		return t;
 	}
 
@@ -94,7 +94,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithZAdded(this Transform t, float z)
 	{
-		t.position = new Vector3(t.position.x, t.position.y, t.position.z + z); ;
+		t.position = new Vector3(t.position.x, t.position.y, t.position.z + z);
 		return t;
 	}
 
@@ -106,7 +106,7 @@ public static class TransformExtensions
 	/// <returns>A new Transform</returns>
 	public static Transform WithZMultiplied(this Transform t, float z)
 	{
-		t.position = new Vector3(t.position.x, t.position.y, t.position.z * z); ;
+		t.position = new Vector3(t.position.x, t.position.y, t.position.z * z);
 		return t;
 	}
 }
