@@ -66,6 +66,12 @@ namespace Tools.Utils
 			audioSource.DOFade(0f, duration).Play();
 		}
 
+		public void FadOutAndReturnToPool(float duration = 1f)
+		{
+			audioSource.DOFade(0f, duration).Play();
+			ReturnToPoolAfterDuration(duration);
+		}
+
 		public void SetPitch(float value, float duration = 1f, bool isIgnoringTime = false)
 		{
 			audioSource.DOPitch(0.5f, duration).SetUpdate(UpdateType.Normal, isIgnoringTime).Play();
@@ -93,6 +99,12 @@ namespace Tools.Utils
 		private IEnumerator WaitBeforeReturningToPool()
 		{
 			yield return new WaitForSeconds(audioSource.clip.length);
+			AudioPool.ReturnToPool(this);
+		}
+
+		private IEnumerator ReturnToPoolAfterDuration(float duration)
+		{
+			yield return new WaitForSeconds(duration);
 			AudioPool.ReturnToPool(this);
 		}
 
