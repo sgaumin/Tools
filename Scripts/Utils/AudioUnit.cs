@@ -82,6 +82,16 @@ namespace Tools.Utils
 			audioSource.DOPitch(pitch, duration).SetUpdate(UpdateType.Normal, isIgnoringTime).Play();
 		}
 
+		public void SetVolume(float value, float duration = 1f, bool isIgnoringTime = false)
+		{
+			DOTween.To(() => audioSource.volume, x => audioSource.volume = x, value, duration).SetUpdate(UpdateType.Normal, isIgnoringTime).Play();
+		}
+
+		public void ResetVolume(float duration = 1f, bool isIgnoringTime = false)
+		{
+			DOTween.To(() => audioSource.volume, x => audioSource.volume = x, 1f, duration).SetUpdate(UpdateType.Normal, isIgnoringTime).Play();
+		}
+
 		private IEnumerator PlayLoop()
 		{
 			while (true)
