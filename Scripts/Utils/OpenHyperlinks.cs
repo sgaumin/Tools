@@ -1,10 +1,14 @@
-﻿using TMPro;
+﻿using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
 {
+	[DllImport("__Internal")]
+	private static extern void OpenNewTab(string url);
+
 	[SerializeField] private Color linkColor;
 	[SerializeField] private Color linkHighlightedColor;
 
@@ -23,7 +27,12 @@ public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
 		if (linkIndex != -1)
 		{
 			TMP_LinkInfo linkInfo = pTextMeshPro.textInfo.linkInfo[linkIndex];
+
+#if !UNITY_EDITOR && UNITY_WEBGL
+			OpenNewTab(linkInfo.GetLinkID());
+#else
 			Application.OpenURL(linkInfo.GetLinkID());
+#endif
 		}
 	}
 
