@@ -32,6 +32,7 @@ namespace Tools.Utils
 			audioSource.outputAudioMixerGroup = outputAudioMixerGroup;
 			audioSource.clip = clip;
 			audioSource.pitch = pitch;
+			audioSource.volume = 1f;
 
 			OnPlay?.Invoke();
 
@@ -69,7 +70,7 @@ namespace Tools.Utils
 		public void FadOutAndReturnToPool(float duration = 1f)
 		{
 			audioSource.DOFade(0f, duration).Play();
-			ReturnToPoolAfterDuration(duration);
+			StartCoroutine(ReturnToPoolAfterDuration(duration));
 		}
 
 		public void SetPitch(float value, float duration = 1f, bool isIgnoringTime = false)
