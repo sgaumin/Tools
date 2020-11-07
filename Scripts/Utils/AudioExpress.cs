@@ -7,19 +7,14 @@ namespace Tools.Utils
 	[Serializable]
 	public class AudioExpress
 	{
-		[Header("References")]
 		[SerializeField] private bool isUsingClips;
 		[SerializeField] private AudioClip clip;
 		[SerializeField] private AudioClip[] clips;
 		[SerializeField] private AudioMixerGroup mixerGroup;
-
-		[Header("Audio Parameters")]
 		[SerializeField] private AudioLoopType loopType = AudioLoopType.No;
 		[SerializeField, MinMaxSlider(0f, 10f)] private MinMax timeBetweenLoop = new MinMax(1f, 3f);
 		[SerializeField] private bool isPitchModified;
 		[SerializeField, MinMaxSlider(-1f, 1f)] private MinMax pitchMaxVariation = new MinMax(-0.2f, 0.2f);
-
-		[Header("Component Behavior")]
 		[SerializeField] private AudioStopType autoDestroy = AudioStopType.No;
 		[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
 
