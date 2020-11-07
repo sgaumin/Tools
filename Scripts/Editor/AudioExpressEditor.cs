@@ -6,7 +6,7 @@ namespace Tools.Utils
 	[CustomPropertyDrawer(typeof(AudioExpress))]
 	public class AudioExpressEditor : PropertyDrawer
 	{
-		private float offset = EditorGUIUtility.singleLineHeight * 0.5f;
+		private float offset = EditorGUIUtility.singleLineHeight * 0.3f;
 		private float offsetClipsArray;
 		private float offsetPitch;
 		private float offsetLoop;
@@ -16,7 +16,7 @@ namespace Tools.Utils
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
 
-			return isExpanded ? base.GetPropertyHeight(property, label) * 8.2f + offsetClipsArray + offsetPitch + offsetLoop + offsetAutoDestroy + EditorGUIUtility.singleLineHeight * 1.3f : EditorGUIUtility.singleLineHeight * 1.3f;
+			return isExpanded ? base.GetPropertyHeight(property, label) * 8.2f + offsetClipsArray + offsetPitch + offsetLoop + offsetAutoDestroy + EditorGUIUtility.singleLineHeight * 1f : EditorGUIUtility.singleLineHeight * 1f;
 		}
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -36,7 +36,7 @@ namespace Tools.Utils
 			SerializedProperty multiplier = property.FindPropertyRelative("multiplier");
 
 			// Calculate rects
-			Rect labelRect = new Rect(position.x, position.y + offset, position.width, EditorGUIUtility.singleLineHeight);
+			Rect labelRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 			Rect isUsingClipsRect = new Rect(position.x, position.y + offset + EditorGUIUtility.singleLineHeight, position.width, EditorGUIUtility.singleLineHeight);
 			Rect clipRect = new Rect(position.x, position.y + offset + EditorGUIUtility.singleLineHeight * 2.1f, position.width, EditorGUIUtility.singleLineHeight);
 			Rect mixerGroupRect = new Rect(position.x, position.y + offset + offsetClipsArray + EditorGUIUtility.singleLineHeight * 3.2f, position.width, EditorGUIUtility.singleLineHeight);
@@ -53,6 +53,8 @@ namespace Tools.Utils
 
 			if (isExpanded)
 			{
+				EditorGUI.indentLevel++;
+
 				EditorGUI.PropertyField(isUsingClipsRect, isUsingClips, new GUIContent("Multiple Clips"));
 				if (isUsingClips.boolValue)
 				{
@@ -79,7 +81,7 @@ namespace Tools.Utils
 				if (isPitchModified.boolValue)
 				{
 					EditorGUI.PropertyField(pitchMaxVariationRect, pitchMaxVariation);
-					offsetPitch = EditorGUIUtility.singleLineHeight * 2.7f;
+					offsetPitch = EditorGUIUtility.singleLineHeight * 2.3f;
 				}
 				else
 				{
@@ -90,7 +92,7 @@ namespace Tools.Utils
 				if (loopType.enumValueIndex == (int)AudioLoopType.Manuel)
 				{
 					EditorGUI.PropertyField(timeBetweenLoopRect, timeBetweenLoop);
-					offsetLoop = EditorGUIUtility.singleLineHeight * 2.7f;
+					offsetLoop = EditorGUIUtility.singleLineHeight * 2.3f;
 				}
 				else
 				{
@@ -109,6 +111,8 @@ namespace Tools.Utils
 				{
 					offsetAutoDestroy = 0f;
 				}
+
+				EditorGUI.indentLevel--;
 			}
 
 			EditorGUI.EndProperty();
