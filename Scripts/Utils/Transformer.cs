@@ -182,9 +182,9 @@ public class Transformer : MonoBehaviour
 						.Play();
 				}
 
-        if (rotater.CanStartAtEndPosition)
-        {
-					currentRotater.Goto(Random.value > 0.5f ? (float)rotater.Duration: 0f, true);
+				if (rotater.CanStartAtEndPosition)
+				{
+					currentRotater.Goto(Random.value > 0.5f ? (float)rotater.Duration : 0f, true);
 				}
 
 				break;
