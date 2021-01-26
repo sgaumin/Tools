@@ -7,7 +7,7 @@ using UnityEditor;
 namespace Tools.Utils
 {
 	[Serializable]
-	public struct MinMax
+	public struct FloatRange
 	{
 
 		[SerializeField]
@@ -47,7 +47,7 @@ namespace Tools.Utils
 			}
 		}
 
-		public MinMax(float min, float max)
+		public FloatRange(float min, float max)
 		{
 			this.min = min;
 			this.max = max;
@@ -60,13 +60,13 @@ namespace Tools.Utils
 
 	}
 
-	public class MinMaxSliderAttribute : PropertyAttribute
+	public class FloatRangeSliderAttribute : PropertyAttribute
 	{
 
 		public readonly float Min;
 		public readonly float Max;
 
-		public MinMaxSliderAttribute(float min, float max)
+		public FloatRangeSliderAttribute(float min, float max)
 		{
 			Min = min;
 			Max = max;
@@ -75,9 +75,9 @@ namespace Tools.Utils
 	}
 
 #if UNITY_EDITOR
-	[CustomPropertyDrawer(typeof(MinMax))]
-	[CustomPropertyDrawer(typeof(MinMaxSliderAttribute))]
-	public class MinMaxDrawer : PropertyDrawer
+	[CustomPropertyDrawer(typeof(FloatRange))]
+	[CustomPropertyDrawer(typeof(FloatRangeSliderAttribute))]
+	public class FloatRangeDrawer : PropertyDrawer
 	{
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -99,7 +99,7 @@ namespace Tools.Utils
 
 			SerializedProperty minProperty = property.FindPropertyRelative("min");
 			SerializedProperty maxProperty = property.FindPropertyRelative("max");
-			MinMaxSliderAttribute minmax = attribute as MinMaxSliderAttribute ?? new MinMaxSliderAttribute(0, 1);
+			FloatRangeSliderAttribute minmax = attribute as FloatRangeSliderAttribute ?? new FloatRangeSliderAttribute(0, 1);
 			position.height -= 16f;
 
 			label = EditorGUI.BeginProperty(position, label, property);

@@ -15,7 +15,7 @@ namespace Tools.Utils
 		public bool playOnAwake { get; set; }
 		public bool loop { get; set; }
 		public AudioLoopType loopType { get; set; }
-		public MinMax timeBetweenLoop { get; set; }
+		public FloatRange timeBetweenLoop { get; set; }
 		public AudioMixerGroup outputAudioMixerGroup { get; set; }
 		public AudioClip clip { get; set; }
 		public AudioClip[] clips { get; set; }

@@ -6,7 +6,7 @@ namespace Tools.Utils
 	[System.Serializable]
 	public class Scaler
 	{
-		[SerializeField, MinMaxSlider(0f, 10f)] private MinMax factor = new MinMax(1f, 3f);
+		[SerializeField, FloatRangeSlider(0f, 10f)] private FloatRange factor = new FloatRange(1f, 3f);
 		[SerializeField, Range(0f, 10f)] private float duration;
 		[SerializeField] private Ease ease = Ease.InOutSine;
 		[SerializeField] private LoopType loopType = LoopType.Yoyo;
@@ -15,7 +15,7 @@ namespace Tools.Utils
 		[SerializeField] private bool isReverting = false;
 		[SerializeField] private bool isIgnoringTime = false;
 
-		public MinMax Factor => factor;
+		public FloatRange Factor => factor;
 		public float Duration => duration;
 		public Ease Ease => ease;
 		public LoopType LoopType => loopType;

@@ -12,9 +12,9 @@ namespace Tools.Utils
 		[SerializeField] private AudioClip[] clips;
 		[SerializeField] private AudioMixerGroup mixerGroup;
 		[SerializeField] private AudioLoopType loopType = AudioLoopType.No;
-		[SerializeField, MinMaxSlider(0f, 10f)] private MinMax timeBetweenLoop = new MinMax(1f, 3f);
+		[SerializeField, FloatRangeSlider(0f, 10f)] private FloatRange timeBetweenLoop = new FloatRange(1f, 3f);
 		[SerializeField] private bool isPitchModified;
-		[SerializeField, MinMaxSlider(-1f, 1f)] private MinMax pitchMaxVariation = new MinMax(-0.2f, 0.2f);
+		[SerializeField, FloatRangeSlider(-1f, 1f)] private FloatRange pitchMaxVariation = new FloatRange(-0.2f, 0.2f);
 		[SerializeField] private AudioStopType autoDestroy = AudioStopType.No;
 		[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
 
