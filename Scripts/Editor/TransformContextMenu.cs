@@ -1,4 +1,6 @@
 ﻿using UnityEditor;
+using UnityEditor.Experimental.SceneManagement;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Tools.Utils
@@ -21,6 +23,15 @@ namespace Tools.Utils
 			Selection.activeTransform.position = Vector3.zero;
 			Selection.activeTransform.rotation = Quaternion.identity;
 			Selection.activeTransform.localScale = Vector3.one;
+
+			// Make sure to save data
+			EditorUtility.SetDirty(Selection.activeTransform);
+
+			var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+			if (prefabStage != null)
+			{
+				EditorSceneManager.MarkSceneDirty(prefabStage.scene);
+			}
 		}
 	}
 }
