@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Random = System.Random;
 
 public static class EnumerableExtensions
 {
@@ -327,4 +329,44 @@ public static class EnumerableExtensions
 				throw new NotImplementedException();
 		}
 	}
+
+	/// <summary>
+	/// Return the closest component to target from the list in 3D space
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="e">The enumerable</param>
+	/// <param name="target"></param>
+	/// <returns></returns>
+	private static T GetClosest<T>(this IEnumerable<T> e, Vector3 target) where T : Component
+		=> e.OrderBy(x => Vector3.Distance(x.transform.position, target)).FirstOrDefault();
+
+	/// <summary>
+	/// Return the furthest component to target from the list in 3D space
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="e">The enumerable</param>
+	/// <param name="target"></param>
+	/// <returns></returns>
+	private static T GetFurthest<T>(this IEnumerable<T> e, Vector3 target) where T : Component
+		=> e.OrderBy(x => Vector3.Distance(x.transform.position, target)).LastOrDefault();
+
+	/// <summary>
+	/// Return the closest component to target from the list in 2D space
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="e">The enumerable</param>
+	/// <param name="target"></param>
+	/// <returns></returns>
+	private static T GetClosest2D<T>(this IEnumerable<T> e, Vector2 target) where T : Component
+		=> e.OrderBy(x => Vector2.Distance(x.transform.position, target)).FirstOrDefault();
+
+	/// <summary>
+	/// Return the furthest component to target from the list in 2D space
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="e">The enumerable</param>
+	/// <param name="target"></param>
+	/// <returns></returns>
+	private static T GetFurthest2D<T>(this IEnumerable<T> e, Vector2 target) where T : Component
+		=> e.OrderBy(x => Vector2.Distance(x.transform.position, target)).LastOrDefault();
 }
