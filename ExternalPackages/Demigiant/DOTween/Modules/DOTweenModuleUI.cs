@@ -2,7 +2,9 @@
 // Created: 2018/07/13
 
 #if true && (UNITY_4_6 || UNITY_5 || UNITY_2017_1_OR_NEWER) // MODULE_MARKER
+
 using System;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening.Core;
@@ -108,6 +110,7 @@ namespace DG.Tweening
                     : duration * (i == 0 ? c.time : c.time - colors[i - 1].time);
                 s.Append(target.DOColor(c.color, colorDuration).SetEase(Ease.Linear));
             }
+            s.SetTarget(target);
             return s;
         }
 
@@ -480,6 +483,29 @@ namespace DG.Tweening
             return t;
         }
 
+        /// <summary>
+        /// Tweens a Text's text from one integer to another, with options for thousands separators
+        /// </summary>
+        /// <param name="fromValue">The value to start from</param>
+        /// <param name="endValue">The end value to reach</param>
+        /// <param name="duration">The duration of the tween</param>
+        /// <param name="addThousandsSeparator">If TRUE (default) also adds thousands separators</param>
+        /// <param name="culture">The <see cref="CultureInfo"/> to use (InvariantCulture if NULL)</param>
+        public static TweenerCore<int, int, NoOptions> DOCounter(
+            this Text target, int fromValue, int endValue, float duration, bool addThousandsSeparator = true, CultureInfo culture = null
+        ){
+            int v = fromValue;
+            CultureInfo cInfo = !addThousandsSeparator ? null : culture ?? CultureInfo.InvariantCulture;
+            TweenerCore<int, int, NoOptions> t = DOTween.To(() => v, x => {
+                v = x;
+                target.text = addThousandsSeparator
+                    ? v.ToString("N0", cInfo)
+                    : v.ToString();
+            }, endValue, duration);
+            t.SetTarget(target);
+            return t;
+        }
+
         /// <summary>Tweens a Text's alpha color to the given value.
         /// Also stores the Text as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
@@ -501,6 +527,10 @@ namespace DG.Tweening
         /// Leave it to NULL (default) to use default ones</param>
         public static TweenerCore<string, string, StringOptions> DOText(this Text target, string endValue, float duration, bool richTextEnabled = true, ScrambleMode scrambleMode = ScrambleMode.None, string scrambleChars = null)
         {
+            if (endValue == null) {
+                if (Debugger.logPriority > 0) Debugger.LogWarning("You can't pass a NULL string to DOText: an empty string will be used instead to avoid errors");
+                endValue = "";
+            }
             TweenerCore<string, string, StringOptions> t = DOTween.To(() => target.text, x => target.text = x, endValue, duration);
             t.SetOptions(richTextEnabled, scrambleMode, scrambleChars)
                 .SetTarget(target);
