@@ -8,8 +8,10 @@ namespace Tools.Utils
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public class OpenHyperlinks : MonoBehaviour, IPointerClickHandler
 	{
+#if !UNITY_EDITOR && UNITY_WEBGL
 		[DllImport("__Internal")]
 		private static extern void OpenNewTab(string url);
+#endif
 
 		[SerializeField] private Color linkColor;
 		[SerializeField] private Color linkHighlightedColor;
