@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -17,6 +18,8 @@ namespace Tools.Utils
 		[SerializeField, FloatRangeSlider(-1f, 1f)] private FloatRange pitchMaxVariation = new FloatRange(-0.2f, 0.2f);
 		[SerializeField] private AudioStopType autoDestroy = AudioStopType.No;
 		[SerializeField, Range(0f, 10f)] private float multiplier = 5f;
+
+		public AudioClip Clip => isUsingClips ? clips.First() : clip;
 
 		public AudioUnit Play(string audioUnitPrefixName = null)
 		{
