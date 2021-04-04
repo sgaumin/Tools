@@ -2,16 +2,24 @@
 
 namespace Tools.Utils
 {
-	public class OpenURL : MonoBehaviour
+	public static class OpenURL
 	{
-		[SerializeField] private string link;
-
-		public void Open()
+		public static void Open(string link)
 		{
 			if (!string.IsNullOrEmpty(link))
 			{
 				Application.OpenURL(link);
 			}
+		}
+
+		public static void RedirectToTwitterProfile()
+		{
+			Application.OpenURL(Constants.TWITTER_PROFILE);
+		}
+
+		public static void RedirectToItchProfile()
+		{
+			Application.OpenURL(Constants.ITCH_PROFILE);
 		}
 	}
 }
