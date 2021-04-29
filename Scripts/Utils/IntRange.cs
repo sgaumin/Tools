@@ -58,6 +58,10 @@ namespace Tools.Utils
 			return Mathf.Clamp(value, this.min, this.max);
 		}
 
+		public bool Contains(int value)
+		{
+			return value >= this.min && value <= this.max;
+		}
 	}
 
 	public class IntRangeSliderAttribute : PropertyAttribute
