@@ -20,6 +20,7 @@ namespace Tools.Utils
 		public AudioClip clip { get; set; }
 		public AudioClip[] clips { get; set; }
 		public float pitch { get; set; }
+		public float volume { get => audioSource.volume; set { audioSource.volume = value; } }
 		public bool isGoingToStop { get; set; }
 		public float duration { get; set; }
 
