@@ -23,6 +23,13 @@ namespace Tools.Utils
 
 		public AudioUnit Play(string audioUnitPrefixName = null)
 		{
+			// Sanity checks
+			AudioClip currentClip = isUsingClips ? clips.Random() : clip;
+			if (currentClip == null)
+			{
+				return null;
+			}
+
 			// Initialization
 			AudioUnit audioSource = AudioPool.GetFromPool();
 
@@ -33,40 +40,31 @@ namespace Tools.Utils
 			audioSource.timeBetweenLoop = timeBetweenLoop;
 			audioSource.outputAudioMixerGroup = mixerGroup;
 
-			audioSource.clip = isUsingClips ? clips.Random() : clip;
+			audioSource.clip = currentClip;
 			audioSource.clips = isUsingClips ? clips : null;
 			audioSource.pitch = isPitchModified ? 1f - pitchMaxVariation.RandomValue : 1f;
 			audioSource.isGoingToStop = autoDestroy != AudioStopType.No;
 
-			if (audioSource.clip == null)
+			if (audioUnitPrefixName != null)
 			{
-				Debug.LogWarning($"An audio unit is created without a clip.");
-
-				AudioPool.ReturnToPool(audioSource);
+				audioSource.gameObject.name = audioUnitPrefixName;
 			}
-			else
+
+			audioSource.gameObject.name += audioSource.clip.name;
+
+			// Auto Destroy
+			switch (autoDestroy)
 			{
-				if (audioUnitPrefixName != null)
-				{
-					audioSource.gameObject.name = audioUnitPrefixName;
-				}
-
-				audioSource.gameObject.name += audioSource.clip.name;
-
-				// Auto Destroy
-				switch (autoDestroy)
-				{
-					case AudioStopType.StopAfterDuration:
-						audioSource.duration = multiplier;
-						break;
-					case AudioStopType.StopAfterPlays:
-						audioSource.duration = audioSource.clip.length * (multiplier - 1);
-						break;
-				}
-
-				// Play Sound
-				audioSource.Play();
+				case AudioStopType.StopAfterDuration:
+					audioSource.duration = multiplier;
+					break;
+				case AudioStopType.StopAfterPlays:
+					audioSource.duration = audioSource.clip.length * (multiplier - 1);
+					break;
 			}
+
+			// Play Sound
+			audioSource.Play();
 
 			return audioSource;
 		}
