@@ -7,7 +7,7 @@ namespace Tools.Utils
 	public class Positioner
 	{
 		[SerializeField] private Vector3 positiontarget;
-		[SerializeField, Range(0f, 10f)] private float duration;
+		[SerializeField, FloatRangeSlider(0f, 10f)] private FloatRange duration = new FloatRange(1f, 3f);
 		[SerializeField] private Ease ease = Ease.InOutSine;
 		[SerializeField] private LoopType loopType = LoopType.Yoyo;
 		[SerializeField] private int loopCount = -1;
@@ -16,7 +16,7 @@ namespace Tools.Utils
 		[SerializeField] private bool isIgnoringTime = false;
 
 		public Vector3 Target => positiontarget;
-		public float Duration => duration;
+		public FloatRange Duration => duration;
 		public Ease Ease => ease;
 		public LoopType LoopType => loopType;
 		public int LoopCount => loopCount;

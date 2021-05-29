@@ -67,7 +67,7 @@ public class Transformer : MonoBehaviour
 				transform.localPosition = !positioner.IsReverting ? startPosition : transform.localPosition + positioner.Target;
 
 				currentPositioner = transform
-					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration)
+					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration.RandomValue)
 					.SetEase(positioner.Ease)
 					.SetUpdate(UpdateType.Normal, positioner.IsIgnoringTime)
 					.Play();
@@ -88,7 +88,7 @@ public class Transformer : MonoBehaviour
 						Quaternion.Euler(target);
 
 					currentRotater = transform
-							.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
+							.DORotate(target, rotater.Duration.RandomValue, RotateMode.FastBeyond360)
 							.SetEase(rotater.Ease)
 							.SetRelative()
 							.SetUpdate(UpdateType.Normal, rotater.IsIgnoringTime)
@@ -101,7 +101,7 @@ public class Transformer : MonoBehaviour
 						Quaternion.Euler(target);
 
 					currentRotater = transform
-						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
+						.DORotate(target, rotater.Duration.RandomValue, RotateMode.FastBeyond360)
 						.SetEase(rotater.Ease)
 						.SetRelative()
 						.SetUpdate(UpdateType.Normal, rotater.IsIgnoringTime)
@@ -138,7 +138,7 @@ public class Transformer : MonoBehaviour
 					transform.localPosition + positioner.Target;
 
 				currentPositioner = transform
-					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration)
+					.DOLocalMove(!positioner.IsReverting ? transform.localPosition + positioner.Target : startPosition, positioner.Duration.RandomValue)
 					.SetEase(positioner.Ease)
 					.SetLoops(loop, positioner.LoopType)
 					.SetUpdate(UpdateType.Normal, positioner.IsIgnoringTime)
@@ -160,7 +160,7 @@ public class Transformer : MonoBehaviour
 						Quaternion.Euler(target);
 
 					currentRotater = transform
-						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
+						.DORotate(target, rotater.Duration.RandomValue, RotateMode.FastBeyond360)
 						.SetEase(rotater.Ease)
 						.SetLoops(loop, rotater.LoopType)
 						.SetRelative()
@@ -174,7 +174,7 @@ public class Transformer : MonoBehaviour
 						Quaternion.Euler(target);
 
 					currentRotater = transform
-						.DORotate(target, rotater.Duration, RotateMode.FastBeyond360)
+						.DORotate(target, rotater.Duration.RandomValue, RotateMode.FastBeyond360)
 						.SetEase(rotater.Ease)
 						.SetLoops(loop, rotater.LoopType)
 						.SetRelative()
@@ -184,7 +184,7 @@ public class Transformer : MonoBehaviour
 
 				if (rotater.CanStartAtEndPosition)
 				{
-					currentRotater.Goto(Random.value > 0.5f ? (float)rotater.Duration : 0f, true);
+					currentRotater.Goto(Random.value > 0.5f ? (float)rotater.Duration.RandomValue : 0f, true);
 				}
 
 				break;

@@ -8,18 +8,18 @@ namespace Tools.Utils
 	{
 		[SerializeField] private float angleTarget = 360f;
 		[SerializeField] private bool hasFullAmplitude;
-		[SerializeField, Range(0f, 10f)] private float duration;
+		[SerializeField, FloatRangeSlider(0f, 10f)] private FloatRange duration = new FloatRange(1f, 3f);
 		[SerializeField] private Ease ease = Ease.InOutSine;
 		[SerializeField] private LoopType loopType = LoopType.Yoyo;
 		[SerializeField] private int loopCount = -1;
 		[SerializeField] private bool playOnStart = false;
 		[SerializeField] private bool isReverting = false;
 		[SerializeField] private bool isIgnoringTime = false;
-    [SerializeField] private bool canStartAtEndPosition = false;
+		[SerializeField] private bool canStartAtEndPosition = false;
 
-    public float AngleTarget => angleTarget;
+		public float AngleTarget => angleTarget;
 		public bool HasFullAmplitude => hasFullAmplitude;
-		public float Duration => duration;
+		public FloatRange Duration => duration;
 		public Ease Ease => ease;
 		public LoopType LoopType => loopType;
 		public int LoopCount => loopCount;
