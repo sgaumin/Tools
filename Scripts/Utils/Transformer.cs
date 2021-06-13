@@ -117,7 +117,7 @@ public class Transformer : MonoBehaviour
 				transform.localScale = !scaler.IsReverting ? startScale : startScale * currentFactor;
 
 				currentScaler = transform
-					.DOScale(!scaler.IsReverting ? startScale * currentFactor : startScale, scaler.Duration)
+					.DOScale(!scaler.IsReverting ? startScale * currentFactor : startScale, scaler.Duration.RandomValue)
 					.SetEase(scaler.Ease)
 					.SetUpdate(UpdateType.Normal, scaler.IsIgnoringTime)
 					.Play();
@@ -196,7 +196,7 @@ public class Transformer : MonoBehaviour
 				transform.localScale = !scaler.IsReverting ? startScale : startScale * currentFactor;
 
 				currentScaler = transform
-					.DOScale(!scaler.IsReverting ? startScale * currentFactor : startScale, scaler.Duration)
+					.DOScale(!scaler.IsReverting ? startScale * currentFactor : startScale, scaler.Duration.RandomValue)
 					.SetEase(scaler.Ease)
 					.SetLoops(loop, scaler.LoopType)
 					.SetUpdate(UpdateType.Normal, scaler.IsIgnoringTime)
