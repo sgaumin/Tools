@@ -6,7 +6,7 @@ using UnityEngine;
 public class uGUITools : MonoBehaviour
 {
 	[MenuItem("uGUI/Anchors to Corners %[")]
-	static void AnchorsToCorners()
+	private static void AnchorsToCorners()
 	{
 		foreach (Transform transform in Selection.transforms)
 		{
@@ -28,9 +28,8 @@ public class uGUITools : MonoBehaviour
 		}
 	}
 
-
 	[MenuItem("uGUI/Corners to Anchors %]")]
-	static void CornersToAnchors()
+	private static void CornersToAnchors()
 	{
 		foreach (Transform transform in Selection.transforms)
 		{
@@ -45,18 +44,18 @@ public class uGUITools : MonoBehaviour
 	}
 
 	[MenuItem("uGUI/Mirror Horizontally Around Anchors %;")]
-	static void MirrorHorizontallyAnchors()
+	private static void MirrorHorizontallyAnchors()
 	{
 		MirrorHorizontally(false);
 	}
 
 	[MenuItem("uGUI/Mirror Horizontally Around Parent Center %:")]
-	static void MirrorHorizontallyParent()
+	private static void MirrorHorizontallyParent()
 	{
 		MirrorHorizontally(true);
 	}
 
-	static void MirrorHorizontally(bool mirrorAnchors)
+	private static void MirrorHorizontally(bool mirrorAnchors)
 	{
 		foreach (Transform transform in Selection.transforms)
 		{
@@ -83,18 +82,18 @@ public class uGUITools : MonoBehaviour
 	}
 
 	[MenuItem("uGUI/Mirror Vertically Around Anchors %'")]
-	static void MirrorVerticallyAnchors()
+	private static void MirrorVerticallyAnchors()
 	{
 		MirrorVertically(false);
 	}
 
 	[MenuItem("uGUI/Mirror Vertically Around Parent Center %\"")]
-	static void MirrorVerticallyParent()
+	private static void MirrorVerticallyParent()
 	{
 		MirrorVertically(true);
 	}
 
-	static void MirrorVertically(bool mirrorAnchors)
+	private static void MirrorVertically(bool mirrorAnchors)
 	{
 		foreach (Transform transform in Selection.transforms)
 		{

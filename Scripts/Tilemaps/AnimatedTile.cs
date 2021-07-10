@@ -4,7 +4,6 @@
 using UnityEditor;
 #endif
 
-
 namespace UnityEngine.Tilemaps
 {
 	[Serializable]
@@ -42,6 +41,7 @@ namespace UnityEngine.Tilemaps
 	}
 
 #if UNITY_EDITOR
+
 	[CustomEditor(typeof(AnimatedTile))]
 	public class AnimatedTileEditor : Editor
 	{
@@ -90,5 +90,6 @@ namespace UnityEngine.Tilemaps
 				EditorUtility.SetDirty(tile);
 		}
 	}
+
 #endif
 }

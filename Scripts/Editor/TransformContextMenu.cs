@@ -8,7 +8,7 @@ namespace Tools.Utils
 	public class TransformContextMenu
 	{
 		[MenuItem("CONTEXT/Transform/Apply Transform to Children and Reset")]
-		static void ApplyTransformToChildrenAndReset()
+		private static void ApplyTransformToChildrenAndReset()
 		{
 			foreach (Transform child in Selection.activeTransform)
 			{

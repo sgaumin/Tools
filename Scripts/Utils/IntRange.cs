@@ -9,7 +9,6 @@ namespace Tools.Utils
 	[Serializable]
 	public struct IntRange
 	{
-
 		[SerializeField]
 		private int min;
 		[SerializeField]
@@ -66,7 +65,6 @@ namespace Tools.Utils
 
 	public class IntRangeSliderAttribute : PropertyAttribute
 	{
-
 		public readonly int Min;
 		public readonly int Max;
 
@@ -75,15 +73,14 @@ namespace Tools.Utils
 			Min = min;
 			Max = max;
 		}
-
 	}
 
 #if UNITY_EDITOR
+
 	[CustomPropertyDrawer(typeof(IntRange))]
 	[CustomPropertyDrawer(typeof(IntRangeSliderAttribute))]
 	public class IntRangeDrawer : PropertyDrawer
 	{
-
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
 			if (property.serializedObject.isEditingMultipleObjects)
@@ -125,7 +122,7 @@ namespace Tools.Utils
 			maxProperty.intValue = (int)max;
 			EditorGUI.EndProperty();
 		}
-
 	}
+
 #endif
 }

@@ -58,6 +58,7 @@ namespace Tools.Utils
 				case AudioStopType.StopAfterDuration:
 					audioSource.duration = multiplier;
 					break;
+
 				case AudioStopType.StopAfterPlays:
 					audioSource.duration = audioSource.clip.length * (multiplier - 1);
 					break;

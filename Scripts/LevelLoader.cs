@@ -18,12 +18,15 @@ namespace Tools
 				case LevelLoading.PreviousLevel:
 					LevelLoader.LoadPreviousLevel();
 					break;
+
 				case LevelLoading.ReloadLevel:
 					LevelLoader.ReloadLevel();
 					break;
+
 				case LevelLoading.NextLevel:
 					LevelLoader.LoadNextLevel();
 					break;
+
 				case LevelLoading.FirstLevel:
 					LevelLoader.LoadLevelByIndex(0);
 					break;

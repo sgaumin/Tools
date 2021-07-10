@@ -44,9 +44,13 @@ public static class ArrayExtensions
 	/// <param name="array">The array to populate.</param>
 	/// <param name="count">How many slots to populate.</param>
 	/// <param name="mapper">Function used to populate a particular slot.</param>
-	/// <remarks>This method populates exactly <paramref name="count"/> unique slots of the array. 
-	/// A slot is populated at most once: <paramref name="mapper"/> will not be called more than once for a
-	/// particular slot. Slots that have not been populated equal to <code>default(T)</code>.</remarks>
+	/// <remarks>
+	/// This method populates exactly <paramref name="count"/> unique slots of the array. A slot is
+	/// populated at most once: <paramref name="mapper"/> will not be called more than once for a
+	/// particular slot. Slots that have not been populated equal to
+	/// <code>default(T)</code>
+	/// .
+	/// </remarks>
 	public static void PopulateRandom<T>(this T[,] array, int count, Func<int, int, T> mapper, Random rng = null)
 	{
 		if (rng == null)
@@ -83,13 +87,15 @@ public static class ArrayExtensions
 	}
 
 	/// <summary>
-	/// Searches for the specified object and returns the coordinates of its first occurrence
-	/// in a multi-dimensional array.
+	/// Searches for the specified object and returns the coordinates of its first occurrence in a
+	/// multi-dimensional array.
 	/// </summary>
 	/// <param name="array">The multi-dimensional array to search.</param>
 	/// <param name="element">The object to locate.</param>
-	/// <returns>The indices, in each dimension, of the first occurrence of <paramref name="element"/>
-	/// in <paramref name="array"/>, if found; otherwise, null.</returns>
+	/// <returns>
+	/// The indices, in each dimension, of the first occurrence of <paramref name="element"/> in
+	/// <paramref name="array"/>, if found; otherwise, null.
+	/// </returns>
 	public static int[] IndicesOf(this Array array, object element)
 	{
 		// https://stackoverflow.com/questions/3260935/finding-position-of-an-element-in-a-two-dimensional-array

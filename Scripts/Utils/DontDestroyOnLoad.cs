@@ -4,6 +4,6 @@ namespace Tools.Utils
 {
 	public class DontDestroyOnLoad : MonoBehaviour
 	{
-		void Start() => DontDestroyOnLoad(gameObject);
+		private void Start() => DontDestroyOnLoad(gameObject);
 	}
 }

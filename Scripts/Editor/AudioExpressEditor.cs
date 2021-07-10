@@ -15,7 +15,6 @@ namespace Tools.Utils
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
-
 			return isExpanded ? base.GetPropertyHeight(property, label) * 8.2f + offsetClipsArray + offsetPitch + offsetLoop + offsetAutoDestroy + EditorGUIUtility.singleLineHeight * 1f : EditorGUIUtility.singleLineHeight * 1f;
 		}
 

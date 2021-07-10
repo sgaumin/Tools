@@ -16,18 +16,19 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Returns a list of (element, index) tuples to be able to iterate over the enumerable
-	/// with the index embedded.
+	/// Returns a list of (element, index) tuples to be able to iterate over the enumerable with the
+	/// index embedded.
 	/// </summary>
 	/// <param name="e">The enumerable</param>
-	/// <returns>A list of (element, index) tuples to be able to iterate over the enumerable with the index embedded.</returns>
+	/// <returns>
+	/// A list of (element, index) tuples to be able to iterate over the enumerable with the index embedded.
+	/// </returns>
 	public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> e)
 	   => e.Select((item, index) => (item, index));
 
 	/// <summary>
-	/// Returns true if enumerable is empty.
-	/// 
-	/// This method exists to prevent using `Count() > 0` in the code (slower implementation than this one)
+	/// Returns true if enumerable is empty. /// This method exists to prevent using `Count() &gt;
+	/// 0` in the code (slower implementation than this one)
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
@@ -60,8 +61,8 @@ public static class EnumerableExtensions
 	public static IEnumerable<T> Flatten<T>(this IEnumerable<IEnumerable<T>> e) => e.SelectMany(x => x);
 
 	/// <summary>
-	/// Returns the last specified number of contiguous elements at the end of a sequence.
-	/// The ordering stays the same.
+	/// Returns the last specified number of contiguous elements at the end of a sequence. The
+	/// ordering stays the same.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="source">The sequence to return elements from.</param>
@@ -119,8 +120,7 @@ public static class EnumerableExtensions
 	public static T Random<T>(this IEnumerable<T> e, Random rng = null) => e.ElementAt((rng ?? defaultRNG).Next(0, e.Count()));
 
 	/// <summary>
-	/// Returns a random element from the list
-	/// This method is optimized for lists
+	/// Returns a random element from the list This method is optimized for lists
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The list</param>
@@ -184,7 +184,8 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Returns a random element from the enumerable except specified values or default(T) if the enumerable is empty
+	/// Returns a random element from the enumerable except specified values or default(T) if the
+	/// enumerable is empty
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
@@ -197,7 +198,8 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Returns a random element from the enumerable except specified values or default(T) if the enumerable is empty
+	/// Returns a random element from the enumerable except specified values or default(T) if the
+	/// enumerable is empty
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
@@ -210,7 +212,8 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Returns a random element from the enumerable except specified values or default(T) if the enumerable is empty
+	/// Returns a random element from the enumerable except specified values or default(T) if the
+	/// enumerable is empty
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
@@ -252,7 +255,8 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Returns a random element from, but after transforming, the enumerable or default(T) if the new enumerable is empty
+	/// Returns a random element from, but after transforming, the enumerable or default(T) if the
+	/// new enumerable is empty
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
@@ -267,7 +271,8 @@ public static class EnumerableExtensions
 	}
 
 	/// <summary>
-	/// Returns a random element from, but after transforming, the enumerable or default(T) if the new enumerable is empty
+	/// Returns a random element from, but after transforming, the enumerable or default(T) if the
+	/// new enumerable is empty
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
@@ -299,7 +304,9 @@ public static class EnumerableExtensions
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="e">The enumerable</param>
-	/// <param name="action">The action to execute on each element, with its index as the second parameter</param>
+	/// <param name="action">
+	/// The action to execute on each element, with its index as the second parameter
+	/// </param>
 	public static void ForEach<T>(this IEnumerable<T> e, Action<T, int> action)
 	{
 		int i = 0;
@@ -323,8 +330,10 @@ public static class EnumerableExtensions
 		{
 			case SelectionMode.Intersect:
 				return e.Intersect(values);
+
 			case SelectionMode.Except:
 				return e.Except(values);
+
 			default:
 				throw new NotImplementedException();
 		}

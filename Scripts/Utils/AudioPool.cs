@@ -2,7 +2,6 @@
 using System.Linq;
 using UnityEngine;
 
-
 namespace Tools.Utils
 {
 	public static class AudioPool
