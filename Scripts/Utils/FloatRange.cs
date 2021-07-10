@@ -9,7 +9,6 @@ namespace Tools.Utils
 	[Serializable]
 	public struct FloatRange
 	{
-
 		[SerializeField]
 		private float min;
 		[SerializeField]
@@ -66,7 +65,6 @@ namespace Tools.Utils
 
 	public class FloatRangeSliderAttribute : PropertyAttribute
 	{
-
 		public readonly float Min;
 		public readonly float Max;
 
@@ -75,15 +73,14 @@ namespace Tools.Utils
 			Min = min;
 			Max = max;
 		}
-
 	}
 
 #if UNITY_EDITOR
+
 	[CustomPropertyDrawer(typeof(FloatRange))]
 	[CustomPropertyDrawer(typeof(FloatRangeSliderAttribute))]
 	public class FloatRangeDrawer : PropertyDrawer
 	{
-
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
 			if (property.serializedObject.isEditingMultipleObjects)
@@ -125,7 +122,7 @@ namespace Tools.Utils
 			maxProperty.floatValue = max;
 			EditorGUI.EndProperty();
 		}
-
 	}
+
 #endif
 }
